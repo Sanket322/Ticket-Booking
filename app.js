@@ -1,9 +1,8 @@
 const express = require('express');
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const xss = require("xss-clean");
-const hpp = require("hpp");
 const cors = require("cors");
+const hpp = require("hpp");
 const compression = require("compression");
 const morgan = require("morgan");
 
@@ -28,28 +27,21 @@ const limiter = rateLimit({    // Limit requests from same IP
 app.use("/api", limiter);
 
 app.use(express.json({ limit: "10kb" }));   // Body parser → reading data from body into req.body
-
-app.use(xss()); // Data sanitization against XSS
-
-app.use(hpp()); // Prevent HTTP Parameter Pollution
-
 app.use(cors()); // Enable CORS
-
+app.use(hpp()); // Prevent HTTP Parameter Pollution
 app.use(compression()); // Compress responses
 
 
-
-// Routes
+// // Routes
 app.use("/user", userRoutes)
 app.use("/admin", adminRoutes)
 
 
-
 // Invalid Route
-app.all(/.*/, (req, res) => {
-  res.statusCode(404).json({
-    "error" : "Page Not Found"
-  })
+app.use((req, res) => {
+  res.status(404).json({
+    error: "Page Not Found"
+  });
 });
 
 
