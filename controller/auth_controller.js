@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
 const nodemailer = require('nodemailer');
 
 const User = require("../model/userSchema");
@@ -10,11 +9,10 @@ const sendEmail = require("../utils/sendMail");
 
 
 const create_user_token = (id) => {
-  return jwt.sign({ email: this.email }, process.env.JWT_SECRET_KEY, {
+  return jwt.sign({ id }, process.env.JWT_SECRET_KEY, {
     expiresIn: "1d",
   });
 };
-
 
 const set_token_cookie = (id, res) => {
 	token = create_user_token(id);
@@ -24,7 +22,7 @@ const set_token_cookie = (id, res) => {
 		),
 		httpOnly: true,
 	};
-	res.cookie("jwt", token, cookieOptions);
+	return res.cookie("jwt", token, cookieOptions);
 };
 
 
@@ -45,12 +43,17 @@ exports.register = catchAsync(async (req, res, next) => {
 		email: req.body.email,
 		password: req.body.password,
 	});
-	return set_token_cookie(user._id, res);
+
+	set_token_cookie(user._id, res);
+
+	return res.status(200).json({
+		"message" : "success"
+	})
 });
 
 
-exports.login = catchAsync(async (req, res) => {
-	const email = req.user.email;
+exports.login = catchAsync(async (req, res, next) => {
+	const email = req.body.email;
 	if (!email || !req.body.password) {
 		return next(new AppError("Email and Password are mandatory", 400));
 	}
@@ -60,16 +63,21 @@ exports.login = catchAsync(async (req, res) => {
 		return next(new AppError("Please Signup first", 401));
 	}
 
-	const is_valid_password = user.is_valid_password(req.body.password);
+	const is_valid_password = await user.is_valid_password(req.body.password);
 	if (!is_valid_password) {
 		return next(new AppError("Invalid Password", 401));
 	}
 
-	return set_token_cookie(user._id, res);
+	set_token_cookie(user._id, res);
+
+	return res.status(200).json({
+		"message" : "success"
+	})
 });
 
 
 exports.logout = (req, res) => {
+	console.log("called")
 	res.cookie("jwt", "loggedout", {
 		expires: new Date(Date.now() + 10 * 1000),
 		httpOnly: true,
@@ -80,18 +88,17 @@ exports.logout = (req, res) => {
 }
 
 
-exports.forget_password = catchAsync(async(req, res) => {
-	// 1) Get user based on POSTed email
+exports.forget_password = catchAsync(async(req, res, next) => {
 	const user = await User.findOne({ email: req.body.email });
 	if (!user) {
-		return next(new AppError('There is no user with email address.', 404));
+		return next(new AppError("User doesn't exist.", 404));
 	}
 
-	// 2) Generate the random reset token
-	const resetToken = user.createPasswordResetToken();
+	const resetToken = await user.createPasswordResetToken();
 	await user.save({ validateBeforeSave: false });
 
-	// 3) Send it to user's email
+	console.log(resetToken, resetToken)
+
 	const resetURL = `${req.protocol}://${req.get(
 		'host'
 	)}/api/v1/users/resetPassword/${resetToken}`;
@@ -122,6 +129,24 @@ exports.forget_password = catchAsync(async(req, res) => {
 });
 
 
-exports.reset_password = (req, res) => {
-	// here i will reset the password which i have forgotten
-}
+exports.reset_password = catchAsync(async (req, res, next) => {
+	const { token, password } = req.body;
+	if(!password || !token){
+		return next(new AppError("Please provide password and token", 400))
+	}
+
+	const user = await User.findOne({ passwordResetToken : token, passwordResetExpires : {$gt : Date.now()} });
+	if(!user){
+		return next(new AppError("Invalid or expired token", 400))
+	}
+
+	user.password = req.body.password;
+	await user.save({ validateBeforeSave: false });
+
+	set_token_cookie(user._id, res);
+
+	res.status(200).json({
+		status: "success",
+		message: "Password updated successfully"
+	})
+})

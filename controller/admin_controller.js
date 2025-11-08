@@ -1,6 +1,6 @@
 const Movie = require("../model/movieSchema");
 const catchAsync = require("../utils/asyncHandler");
-const { createMovieSchema } = require("../validators/movie.validator");
+const { createMovieSchema } = require("../validators/movieValidator");
 
 exports.add_movie = catchAsync( async (req, res) => {
     const validatedData = createMovieSchema.parse(req.body);
