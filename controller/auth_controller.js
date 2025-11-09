@@ -97,8 +97,6 @@ exports.forget_password = catchAsync(async(req, res, next) => {
 	const resetToken = await user.createPasswordResetToken();
 	await user.save({ validateBeforeSave: false });
 
-	console.log(resetToken, resetToken)
-
 	const resetURL = `${req.protocol}://${req.get(
 		'host'
 	)}/api/v1/users/resetPassword/${resetToken}`;
@@ -141,6 +139,8 @@ exports.reset_password = catchAsync(async (req, res, next) => {
 	}
 
 	user.password = req.body.password;
+	user.passwordResetToken = null;
+	user.passwordResetExpires = null;
 	await user.save({ validateBeforeSave: false });
 
 	set_token_cookie(user._id, res);
