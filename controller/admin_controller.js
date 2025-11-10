@@ -1,10 +1,7 @@
 const Movie = require("../model/movieSchema");
 const catchAsync = require("../utils/asyncHandler");
-const { createMovieSchema } = require("../validators/movieValidator");
 
 exports.add_movie = catchAsync( async (req, res) => {
-    const validatedData = createMovieSchema.parse(req.body);
-    
     const {title, description, language, genres, duration, releaseDate, image, cast, director} = req.body;
     const movie = await Movie.create({
         title,
@@ -20,7 +17,7 @@ exports.add_movie = catchAsync( async (req, res) => {
 
     return res.status(201).json({
         status : "success",
-        data : movie
+        data : "Movie added successfullly"
     })
 })
 
@@ -29,7 +26,7 @@ exports.get_movies = catchAsync(async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
 
-    const movies = await Movie.find({})
+    const movies = await Movie.find({}).select("-createdAt -updatedAt -__v")
         .skip(skip)
         .limit(limit);
 
@@ -40,7 +37,7 @@ exports.get_movies = catchAsync(async (req, res) => {
 
 exports.movie_details = catchAsync(async (req, res) => {
     const id = req.params.id;
-    const movie = await Movie.findById(id);
+    const movie = await Movie.findById(id).select("-createdAt -updatedAt -__v");
 
     let statusCode = 200;
     let message = movie;
@@ -57,7 +54,7 @@ exports.movie_details = catchAsync(async (req, res) => {
 
 exports.update_movie = catchAsync(async(req, res) => {
     const movie_id = req.params.id;
-    const movie = await Movie.findByIdAndUpdate(movie_id, req.body);
+    const movie = await Movie.findByIdAndUpdate(movie_id, req.body, {new : true}).select("-createdAt -updatedAt -__v");
     return res.status(200).json({
         data : movie
     })
@@ -68,6 +65,6 @@ exports.delete_movie = catchAsync(async(req, res) => {
     const movie_id = req.params.id;
     const movie = await Movie.findByIdAndDelete(movie_id);
     return res.status(200).json({
-        data : movie
+        "message" : "Movie deleted successfully"
     })
 })
