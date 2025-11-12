@@ -14,4 +14,28 @@ router
   .put(admin_controller.update_movie)
   .delete(admin_controller.delete_movie);
 
+
+router
+  .route("/screen")
+  .post(admin_controller.add_screen)
+  .get(admin_controller.get_screens);
+
+router
+  .route("/screen/:id")
+  .get(admin_controller.screen_details)
+  .put(admin_controller.update_screen)
+  .delete(admin_controller.delete_screen);
+
+
+router
+  .route("/show")
+  .get(admin_controller.get_shows)
+  .post(admin_controller.add_show);
+
+router
+  .route("/show/:id")
+  .get(admin_controller.show_details)
+  .put(admin_controller.update_show)
+  .delete(admin_controller.delete_show);
+
 module.exports = router;

@@ -9,7 +9,7 @@ const dotenv = require("dotenv");
 // or any wrong path import
 process.on('uncaughtException', err => {
   console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
-  console.log(err.name, err.message);
+  console.log(err.name, err.message, err.stack);
   process.exit(1);
 });
 
