@@ -15,5 +15,11 @@ const Theater = new mongoose.Schema({
             require : true,
         },
     },
-    "screens": [screenId]
+    "screens":  [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Screen"
+    }]
 })
+
+const theaterSchema = mongoose.model("Theater", Theater);
+module.exports = theaterSchema;

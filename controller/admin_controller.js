@@ -2,9 +2,14 @@ const Movie = require("../model/movieSchema");
 const Screen = require("../model/screenSchema");
 const Show = require("../model/showSchema");
 const catchAsync = require("../utils/asyncHandler");
+const Theater = require("../model/theaterSchema");
 
-exports.add_movie = catchAsync( async (req, res) => {
-    const {title, description, language, genres, duration, releaseDate, image, cast, director} = req.body;
+
+// // // // // // // //  Movie Admin // // // // // // // // // // 
+
+
+exports.add_movie = catchAsync(async (req, res) => {
+    const { title, description, language, genres, duration, releaseDate, image, cast, director } = req.body;
     await Movie.create({
         title,
         description,
@@ -18,13 +23,13 @@ exports.add_movie = catchAsync( async (req, res) => {
     })
 
     return res.status(201).json({
-        status : "success",
-        data : "Movie added successfullly"
+        status: "success",
+        data: "Movie added successfullly"
     })
 })
 
 exports.get_movies = catchAsync(async (req, res) => {
-    const page = parseInt(req.query.page) || 1;  
+    const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
 
@@ -33,7 +38,7 @@ exports.get_movies = catchAsync(async (req, res) => {
         .limit(limit);
 
     return res.status(200).json({
-        data : movies
+        data: movies
     })
 })
 
@@ -44,32 +49,94 @@ exports.movie_details = catchAsync(async (req, res) => {
     let statusCode = 200;
     let message = movie;
 
-    if(!movie){
+    if (!movie) {
         statusCode = 404
         message = "Movie not found"
     }
     return res.status(statusCode).json({
-        data : message
+        data: message
     })
 })
 
 
-exports.update_movie = catchAsync(async(req, res) => {
+exports.update_movie = catchAsync(async (req, res) => {
     const movie_id = req.params.id;
-    const movie = await Movie.findByIdAndUpdate(movie_id, req.body, {new : true}).select("-createdAt -updatedAt -__v");
+    const movie = await Movie.findByIdAndUpdate(movie_id, req.body, { new: true }).select("-createdAt -updatedAt -__v");
     return res.status(200).json({
-        data : movie
+        data: movie
     })
 })
 
 
-exports.delete_movie = catchAsync(async(req, res) => {
+exports.delete_movie = catchAsync(async (req, res) => {
     const movie_id = req.params.id;
     await Movie.findByIdAndDelete(movie_id);
     return res.status(200).json({
-        "message" : "Movie deleted successfully"
+        "message": "Movie deleted successfully"
     })
 })
+
+
+
+// // // // // // // // Theater // // // // // // // // 
+
+
+exports.add_theater = catchAsync(async (req, res) => {
+    await Theater.create(req.body);
+
+    return res.status(201).json({
+        status: "success",
+        data: "Theater added successfullly"
+    })
+});
+
+
+exports.get_theaters = catchAsync(async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const theaters = await Theater.find().select(-"createdAt -updatedAt -__v")
+        .skip(skip)
+        .limit(limit);
+
+    return res.status(200).json({
+        data: theaters
+    })
+})
+
+exports.theater_details = catchAsync(async (req, res) => {
+    const id = req.params.id;
+    const theater = await Theater.findById(id).select("-createdAt -updatedAt -__v");
+
+    if(!theater){
+        return res.status(404).json({
+            "message": "Theater not found"
+        })
+    }
+
+    return res.status(200).json({
+        data: theater
+    })
+})
+
+
+exports.update_theater = catchAsync(async (req, res) => {
+    const theater_id = req.params.id;
+    const theater = await Theater.findByIdAndUpdate(theater_id, req.body, { new: true }).select("-createdAt -updatedAt -__v");
+    return res.status(200).json({
+        data: theater
+    })
+})
+
+exports.delete_theater = catchAsync(async (req, res) => {
+    const movie_id = req.params.id;
+    const movie = await Theater.findByIdAndDelete(movie_id);
+    return res.status(200).json({
+        "message": "Movie deleted successfully"
+    })
+})
+
 
 
 // ---------------------------------------   Screen ----------------------------------------
@@ -87,7 +154,6 @@ exports.get_screens = catchAsync(async(req, res) => {
         data : screen
     })
 })
-
 
 exports.add_screen = catchAsync(async(req, res) => {
     await Screen.create(req.body);

@@ -37,5 +37,15 @@ router
   .get(admin_controller.show_details)
   .put(admin_controller.update_show)
   .delete(admin_controller.delete_show);
+router
+  .route("/theater")
+  .post(admin_controller.add_theater)
+  .get(admin_controller.get_theaters);
+
+router
+  .route("/theater/:id")
+  .get(admin_controller.theater_details)
+  .put(admin_controller.update_theater)
+  .delete(admin_controller.delete_theater);
 
 module.exports = router;
