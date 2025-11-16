@@ -100,7 +100,7 @@ exports.get_theaters = catchAsync(async (req, res) => {
     const skip = (page - 1) * limit;
 
     const theaters = await Theater.find()
-        .select(-'createdAt -updatedAt -__v')
+        .select('-createdAt -updatedAt -__v')
         .skip(skip)
         .limit(limit);
 
@@ -163,7 +163,7 @@ exports.get_screens = catchAsync(async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
 
-    const screen = await Screen.find({})
+    const screen = await Screen.find({theaterId : req.body.theaterId})
         .select('-createdAt -updatedAt -__v')
         .skip(skip)
         .limit(limit);
@@ -176,10 +176,10 @@ exports.get_screens = catchAsync(async (req, res) => {
 exports.add_screen = catchAsync(async (req, res) => {
     const theater_id = req.body.theaterId;
 
-    await Screen.create(req.body);
+    const screen = await Screen.create(req.body);
     await Theater.findByIdAndUpdate(
         theater_id,
-        { $push: { screens: req.body._id } },
+        { $push: { screens: screen._id } },
         { new: true }
     );
 
@@ -226,6 +226,11 @@ exports.update_screen = catchAsync(async (req, res) => {
 exports.delete_screen = catchAsync(async (req, res) => {
     const screen_id = req.params.id;
     const screen = await Screen.findByIdAndDelete(screen_id);
+    await Theater.findOneAndUpdate(
+        {_id: req.body.theaterId},
+        { $pull: { seatLayout: screen_id } },
+        { new: true }
+    )
 
     if (!screen) {
         return res.status(404).json({
