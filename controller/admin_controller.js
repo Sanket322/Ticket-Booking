@@ -70,7 +70,14 @@ exports.update_movie = catchAsync(async (req, res) => {
 
 exports.delete_movie = catchAsync(async (req, res) => {
     const movie_id = req.params.id;
-    await Movie.findByIdAndDelete(movie_id);
+    const movie = await Movie.findByIdAndDelete(movie_id);
+
+    if (!movie) {
+        return res.status(404).json({
+            message: 'Movie not found',
+        });
+    }
+
     return res.status(200).json({
         message: 'Movie deleted successfully',
     });
@@ -130,12 +137,26 @@ exports.update_theater = catchAsync(async (req, res) => {
 exports.delete_theater = catchAsync(async (req, res) => {
     const movie_id = req.params.id;
     const movie = await Theater.findByIdAndDelete(movie_id);
+
+    if (!movie) {
+        return res.status(404).json({
+            message: 'Theater not found',
+        });
+    }
+
     return res.status(200).json({
         message: 'Movie deleted successfully',
     });
 });
 
 // ---------------------------------------   Screen ----------------------------------------
+
+exports.requireTheaterId = (req, res, next) => {
+    const theater_id = req.body.theaterId;
+    if (!theater_id) return res.status(400).json({ error: "Theater ID required" });
+    next();
+}
+
 
 exports.get_screens = catchAsync(async (req, res) => {
     const page = parseInt(req.query.page) || 1;
@@ -154,11 +175,6 @@ exports.get_screens = catchAsync(async (req, res) => {
 
 exports.add_screen = catchAsync(async (req, res) => {
     const theater_id = req.body.theaterId;
-    if (!theater_id) {
-        return res.status(404).json({
-            message: 'Theater not found',
-        });
-    }
 
     await Screen.create(req.body);
     await Theater.findByIdAndUpdate(
@@ -195,6 +211,12 @@ exports.update_screen = catchAsync(async (req, res) => {
         new: true,
     }).select('-createdAt -updatedAt -__v');
 
+    if (!screen) {
+        return res.status(404).json({
+            message: 'Screen not found',
+        });
+    }
+
     return res.status(201).json({
         status: 'success',
         data: screen,
@@ -203,15 +225,33 @@ exports.update_screen = catchAsync(async (req, res) => {
 
 exports.delete_screen = catchAsync(async (req, res) => {
     const screen_id = req.params.id;
-    await Screen.findByIdAndDelete(screen_id);
+    const screen = await Screen.findByIdAndDelete(screen_id);
 
-    return res.status(201).json({
+    if (!screen) {
+        return res.status(404).json({
+            message: 'Screen not found',
+        });
+    }
+
+    return res.status(200).json({
         status: 'success',
-        data: 'Screen added successfully',
+        data: 'Screen deleted successfully',
     });
 });
 
+
 // ---------------------------------------   Show ----------------------------------------
+
+exports.requiredDetails = (req, res, next) => {
+    const theaterId = req.body.theaterId;
+    const movie_id = req.body.movieId;
+    const screen_id = req.body.screenId;
+
+    if (!theaterId || !movie_id || !screen_id) {
+        return res.status(400).json({ error: 'Theater Id, Movie Id and Screen Id required' });
+    }
+    next();
+}
 
 exports.add_show = catchAsync(async (req, res) => {
     await Show.create(req.body);

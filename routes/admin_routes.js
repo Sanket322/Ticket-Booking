@@ -19,7 +19,10 @@ router
     .put(admin_controller.update_theater)
     .delete(admin_controller.delete_theater);
 
-router.route('/screen').post(admin_controller.add_screen).get(admin_controller.get_screens);
+
+router.route('/screen')
+    .post(admin_controller.requireTheaterId, admin_controller.add_screen)
+    .get(admin_controller.requireTheaterId, admin_controller.get_screens);
 
 router
     .route('/screen/:id')
@@ -27,7 +30,7 @@ router
     .put(admin_controller.update_screen)
     .delete(admin_controller.delete_screen);
 
-router.route('/show').get(admin_controller.get_shows).post(admin_controller.add_show);
+router.route('/show').get(admin_controller.requiredDetails, admin_controller.get_shows).post(admin_controller.requiredDetails, admin_controller.add_show);
 
 router
     .route('/show/:id')

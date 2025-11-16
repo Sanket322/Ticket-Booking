@@ -4,131 +4,131 @@
         {
             "rowLabel": "A",
             "seats": [
-                { "seatNumber": "A1", "type": "recliner", "isActive": true },
-                { "seatNumber": "A2", "type": "recliner", "isActive": true },
+                { "seatNumber": "A1", "type": "recliner"},
+                { "seatNumber": "A2", "type": "recliner"},
                 { "seatNumber": null, "isActive": false },
-                { "seatNumber": "A3", "type": "recliner", "isActive": true },
-                { "seatNumber": "A4", "type": "recliner", "isActive": true },
+                { "seatNumber": "A3", "type": "recliner"},
+                { "seatNumber": "A4", "type": "recliner"},
                 { "seatNumber": null, "isActive": false },
-                { "seatNumber": "A5", "type": "recliner", "isActive": true },
-                { "seatNumber": "A6", "type": "recliner", "isActive": true }
+                { "seatNumber": "A5", "type": "recliner"},
+                { "seatNumber": "A6", "type": "recliner"}
             ]
         },
         {
             "rowLabel": "B",
             "seats": [
-                { "seatNumber": "B1", "type": "recliner", "isActive": true },
-                { "seatNumber": "B2", "type": "recliner", "isActive": true },
+                { "seatNumber": "B1", "type": "recliner"},
+                { "seatNumber": "B2", "type": "recliner"},
                 { "seatNumber": null, "isActive": false },
-                { "seatNumber": "B3", "type": "recliner", "isActive": true },
-                { "seatNumber": "B4", "type": "recliner", "isActive": true },
+                { "seatNumber": "B3", "type": "recliner"},
+                { "seatNumber": "B4", "type": "recliner"},
                 { "seatNumber": null, "isActive": false },
-                { "seatNumber": "B5", "type": "recliner", "isActive": true },
-                { "seatNumber": "B6", "type": "recliner", "isActive": true }
+                { "seatNumber": "B5", "type": "recliner"},
+                { "seatNumber": "B6", "type": "recliner"}
             ]
         },
         {
             "rowLabel": "C",
             "seats": [
-                { "seatNumber": "C1", "type": "premium", "isActive": true },
-                { "seatNumber": "C2", "type": "premium", "isActive": true },
-                { "seatNumber": "C3", "type": "premium", "isActive": true },
+                { "seatNumber": "C1", "type": "premium"},
+                { "seatNumber": "C2", "type": "premium"},
+                { "seatNumber": "C3", "type": "premium"},
                 { "seatNumber": null, "isActive": false },
-                { "seatNumber": "C4", "type": "premium", "isActive": true },
-                { "seatNumber": "C5", "type": "premium", "isActive": true },
-                { "seatNumber": "C6", "type": "premium", "isActive": true }
+                { "seatNumber": "C4", "type": "premium"},
+                { "seatNumber": "C5", "type": "premium"},
+                { "seatNumber": "C6", "type": "premium"}
             ]
         },
         {
             "rowLabel": "D",
             "seats": [
-                { "seatNumber": "D1", "type": "premium", "isActive": true },
-                { "seatNumber": "D2", "type": "premium", "isActive": true },
-                { "seatNumber": "D3", "type": "premium", "isActive": true },
+                { "seatNumber": "D1", "type": "premium"},
+                { "seatNumber": "D2", "type": "premium"},
+                { "seatNumber": "D3", "type": "premium"},
                 { "seatNumber": null, "isActive": false },
-                { "seatNumber": "D4", "type": "premium", "isActive": true },
-                { "seatNumber": "D5", "type": "premium", "isActive": true },
-                { "seatNumber": "D6", "type": "premium", "isActive": true }
+                { "seatNumber": "D4", "type": "premium"},
+                { "seatNumber": "D5", "type": "premium"},
+                { "seatNumber": "D6", "type": "premium"}
             ]
         },
         {
             "rowLabel": "E",
             "seats": [
-                { "seatNumber": "E1", "type": "regular", "isActive": true },
-                { "seatNumber": "E2", "type": "regular", "isActive": true },
-                { "seatNumber": "E3", "type": "regular", "isActive": true },
-                { "seatNumber": "E4", "type": "regular", "isActive": true },
+                { "seatNumber": "E1", "type": "regular"},
+                { "seatNumber": "E2", "type": "regular"},
+                { "seatNumber": "E3", "type": "regular"},
+                { "seatNumber": "E4", "type": "regular"},
                 { "seatNumber": null, "isActive": false },
-                { "seatNumber": "E5", "type": "regular", "isActive": true },
-                { "seatNumber": "E6", "type": "regular", "isActive": true },
-                { "seatNumber": "E7", "type": "regular", "isActive": true },
-                { "seatNumber": "E8", "type": "regular", "isActive": true }
+                { "seatNumber": "E5", "type": "regular"},
+                { "seatNumber": "E6", "type": "regular"},
+                { "seatNumber": "E7", "type": "regular"},
+                { "seatNumber": "E8", "type": "regular"}
             ]
         },
         {
             "rowLabel": "F",
             "seats": [
-                { "seatNumber": "F1", "type": "regular", "isActive": true },
-                { "seatNumber": "F2", "type": "regular", "isActive": true },
-                { "seatNumber": "F3", "type": "regular", "isActive": true },
-                { "seatNumber": "F4", "type": "regular", "isActive": true },
+                { "seatNumber": "F1", "type": "regular"},
+                { "seatNumber": "F2", "type": "regular"},
+                { "seatNumber": "F3", "type": "regular"},
+                { "seatNumber": "F4", "type": "regular"},
                 { "seatNumber": null, "isActive": false },
-                { "seatNumber": "F5", "type": "regular", "isActive": true },
-                { "seatNumber": "F6", "type": "regular", "isActive": true },
-                { "seatNumber": "F7", "type": "regular", "isActive": true },
-                { "seatNumber": "F8", "type": "regular", "isActive": true }
+                { "seatNumber": "F5", "type": "regular"},
+                { "seatNumber": "F6", "type": "regular"},
+                { "seatNumber": "F7", "type": "regular"},
+                { "seatNumber": "F8", "type": "regular"}
             ]
         },
         {
             "rowLabel": "G",
             "seats": [
-                { "seatNumber": "G1", "type": "regular", "isActive": true },
-                { "seatNumber": "G2", "type": "regular", "isActive": true },
-                { "seatNumber": "G3", "type": "regular", "isActive": true },
-                { "seatNumber": "G4", "type": "regular", "isActive": true },
-                { "seatNumber": "G5", "type": "regular", "isActive": true },
-                { "seatNumber": "G6", "type": "regular", "isActive": true },
-                { "seatNumber": "G7", "type": "regular", "isActive": true },
-                { "seatNumber": "G8", "type": "regular", "isActive": true }
+                { "seatNumber": "G1", "type": "regular"},
+                { "seatNumber": "G2", "type": "regular"},
+                { "seatNumber": "G3", "type": "regular"},
+                { "seatNumber": "G4", "type": "regular"},
+                { "seatNumber": "G5", "type": "regular"},
+                { "seatNumber": "G6", "type": "regular"},
+                { "seatNumber": "G7", "type": "regular"},
+                { "seatNumber": "G8", "type": "regular"}
             ]
         },
         {
             "rowLabel": "H",
             "seats": [
-                { "seatNumber": "H1", "type": "regular", "isActive": true },
-                { "seatNumber": "H2", "type": "regular", "isActive": true },
-                { "seatNumber": "H3", "type": "regular", "isActive": true },
-                { "seatNumber": "H4", "type": "regular", "isActive": true },
-                { "seatNumber": "H5", "type": "regular", "isActive": true },
-                { "seatNumber": "H6", "type": "regular", "isActive": true },
-                { "seatNumber": "H7", "type": "regular", "isActive": true },
-                { "seatNumber": "H8", "type": "regular", "isActive": true }
+                { "seatNumber": "H1", "type": "regular"},
+                { "seatNumber": "H2", "type": "regular"},
+                { "seatNumber": "H3", "type": "regular"},
+                { "seatNumber": "H4", "type": "regular"},
+                { "seatNumber": "H5", "type": "regular"},
+                { "seatNumber": "H6", "type": "regular"},
+                { "seatNumber": "H7", "type": "regular"},
+                { "seatNumber": "H8", "type": "regular"}
             ]
         },
         {
             "rowLabel": "I",
             "seats": [
-                { "seatNumber": "I1", "type": "regular", "isActive": true },
-                { "seatNumber": "I2", "type": "regular", "isActive": true },
-                { "seatNumber": "I3", "type": "regular", "isActive": true },
-                { "seatNumber": "I4", "type": "regular", "isActive": true },
-                { "seatNumber": "I5", "type": "regular", "isActive": true },
-                { "seatNumber": "I6", "type": "regular", "isActive": true },
-                { "seatNumber": "I7", "type": "regular", "isActive": true },
-                { "seatNumber": "I8", "type": "regular", "isActive": true }
+                { "seatNumber": "I1", "type": "regular"},
+                { "seatNumber": "I2", "type": "regular"},
+                { "seatNumber": "I3", "type": "regular"},
+                { "seatNumber": "I4", "type": "regular"},
+                { "seatNumber": "I5", "type": "regular"},
+                { "seatNumber": "I6", "type": "regular"},
+                { "seatNumber": "I7", "type": "regular"},
+                { "seatNumber": "I8", "type": "regular"}
             ]
         },
         {
             "rowLabel": "J",
             "seats": [
-                { "seatNumber": "J1", "type": "regular", "isActive": true },
-                { "seatNumber": "J2", "type": "regular", "isActive": true },
-                { "seatNumber": "J3", "type": "regular", "isActive": true },
-                { "seatNumber": "J4", "type": "regular", "isActive": true },
-                { "seatNumber": "J5", "type": "regular", "isActive": true },
-                { "seatNumber": "J6", "type": "regular", "isActive": true },
-                { "seatNumber": "J7", "type": "regular", "isActive": true },
-                { "seatNumber": "J8", "type": "regular", "isActive": true }
+                { "seatNumber": "J1", "type": "regular"},
+                { "seatNumber": "J2", "type": "regular"},
+                { "seatNumber": "J3", "type": "regular"},
+                { "seatNumber": "J4", "type": "regular"},
+                { "seatNumber": "J5", "type": "regular"},
+                { "seatNumber": "J6", "type": "regular"},
+                { "seatNumber": "J7", "type": "regular"},
+                { "seatNumber": "J8", "type": "regular"}
             ]
         }
     ],
