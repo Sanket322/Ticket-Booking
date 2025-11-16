@@ -1,12 +1,12 @@
 const formatZodError = (zodError) => {
-  const formatted = {};
+    const formatted = {};
 
-  zodError.issues.forEach(err => {
-    const field = err.path.join(".");
-    formatted[field] = err.message;
-  });
+    zodError.issues.forEach((err) => {
+        const field = err.path.join('.');
+        formatted[field] = err.message;
+    });
 
-  return formatted;
+    return formatted;
 };
 
 module.exports = formatZodError;
