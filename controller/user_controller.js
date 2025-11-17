@@ -4,6 +4,7 @@ const Show = require('../model/showSchema');
 const Theater = require('../model/theaterSchema');
 const catchAsync = require('../utils/asyncHandler');
 
+// GET /movies/:id/theaters (shows where it's playing)
 exports.get_movie_details = catchAsync(async (req, res) => {
     const id = req.params.id;
     const movie = await Movie.findById(id).select('-createdAt -updatedAt -__v').lean();
@@ -15,7 +16,7 @@ exports.get_movie_details = catchAsync(async (req, res) => {
     const shows = await Show.find({ movieId : id })
         .populate("theaterId", "name location") 
         .select("_id startTime theaterId screenId")
-        // .lean();
+        .lean();
 
     console.log(shows, "shows");
 
@@ -49,3 +50,23 @@ exports.get_movie_details = catchAsync(async (req, res) => {
         theaters,
     });
 });
+
+
+
+// Available seats for selected show
+
+
+exports.get_available_seats = catchAsync(async (req, res) => {
+    const show_id = req.params.id;
+    const show = await Show.findById(id).select('-createdAt -updatedAt -__v').lean();
+
+    if(!show){
+        return res.status(404).json({message: 'Show not found'});
+    }
+})
+
+
+// book seats
+// cancel booking
+// my bookings
+
